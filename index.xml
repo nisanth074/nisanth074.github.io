@@ -62,12 +62,34 @@ end
       <pubDate>Mon, 12 May 2014 14:58:53 +0530</pubDate>
       
       <guid>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</guid>
-      <description>&lt;p&gt;If you use the &lt;a href=&#34;https://github.com/karmi/retire&#34;&gt;tire&lt;/a&gt; gem in your rails app and wish to quickly find the version of elasticsearch you use, open a rails console and run&lt;/p&gt;
+      <description>&lt;p&gt;Copy the code snippet below and paste it in a rails console.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;response = Tire::Configuration.client.get(Tire::Configuration.url)
-version = JSON.parse(response.body)[&#39;version&#39;]
-puts version
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;def delete_if
+  redis = Resque.redis
+
+  (0...Resque::Failure.count).each do |i|
+    string = redis.lindex(:failed, i)
+    break if string.nil?
+
+    job = Resque.decode(string)
+    remove = yield job
+    next unless remove
+
+    redis.lrem(:failed, 1, string)
+    redo
+  end
+end
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To selectively delete a subset of failed jobs, say we wish delete all push notification jobs that have failed because of http errors, run&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;delete_if do |job|
+  job[&#39;payload&#39;][&#39;class&#39;] == &#39;SendPushNotification&#39; &amp;amp;&amp;amp;
+    job[&#39;exception&#39;] == &#39;Pusher::HTTPError&#39;
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;in the console.&lt;/p&gt;
 </description>
     </item>
     
