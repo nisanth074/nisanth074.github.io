@@ -15,21 +15,6 @@
       <pubDate>Thu, 08 Jan 2015 14:58:53 +0530</pubDate>
       
       <guid>https://nisanth074.github.io/posts/bulk-retry-failed-jobs-resque/</guid>
-      <description>&lt;p&gt;If you use the &lt;a href=&#34;https://github.com/karmi/retire&#34;&gt;tire&lt;/a&gt; gem in your rails app and wish to quickly find the version of elasticsearch you use, open a rails console and run&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;response = Tire::Configuration.client.get(Tire::Configuration.url)
-version = JSON.parse(response.body)[&#39;version&#39;]
-puts version
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Selectively remove failed jobs from Resque 1.x</title>
-      <link>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</link>
-      <pubDate>Mon, 12 May 2014 14:58:53 +0530</pubDate>
-      
-      <guid>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</guid>
       <description>&lt;p&gt;Retrying failed jobs via Resque’s web interface is pretty tiresome, especially when there are more than a handful of them. So I’ve quickly written down a small script that’ll do it for me.&lt;/p&gt;
 
 &lt;p&gt;Copy the snippet below and paste it in a rails console&lt;/p&gt;
@@ -68,6 +53,21 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;I might eventually move this to a rake task, but that’s a blog post for the future.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Selectively remove failed jobs from Resque 1.x</title>
+      <link>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</link>
+      <pubDate>Mon, 12 May 2014 14:58:53 +0530</pubDate>
+      
+      <guid>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</guid>
+      <description>&lt;p&gt;If you use the &lt;a href=&#34;https://github.com/karmi/retire&#34;&gt;tire&lt;/a&gt; gem in your rails app and wish to quickly find the version of elasticsearch you use, open a rails console and run&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;response = Tire::Configuration.client.get(Tire::Configuration.url)
+version = JSON.parse(response.body)[&#39;version&#39;]
+puts version
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

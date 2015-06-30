@@ -23,44 +23,12 @@
 
         <p class="postDate">Mon, May 12, 2014</p>
 
-        <div class="postContent"><p>Retrying failed jobs via Resque’s web interface is pretty tiresome, especially when there are more than a handful of them. So I’ve quickly written down a small script that’ll do it for me.</p>
+        <div class="postContent"><p>If you use the <a href="https://github.com/karmi/retire">tire</a> gem in your rails app and wish to quickly find the version of elasticsearch you use, open a rails console and run</p>
 
-<p>Copy the snippet below and paste it in a rails console</p>
-
-<pre><code class="language-ruby">def retry_if(&amp;should_retry)
-  redis = Resque.redis
-
-  (0...Resque::Failure.count).each do |i|
-    serialized_job = redis.lindex(:failed, i)
-    job = Resque.decode(serialized_job)
-
-    next unless should_retry.(job)
-    Resque::Failure.requeue(i)
-  end
-end
+<pre><code class="language-ruby">response = Tire::Configuration.client.get(Tire::Configuration.url)
+version = JSON.parse(response.body)['version']
+puts version
 </code></pre>
-
-<p>To retry a subset of failed jobs, say email notifications that have failed because of smtp errors</p>
-
-<pre><code class="language-ruby">retry_if do |job|
-  job['payload']['class'] == 'SendEmailNotifications' &amp;&amp; job['exception'] == 'Net::SMTPServerBusy'
-end
-</code></pre>
-
-<p>If you want to skip jobs that have already been retried</p>
-
-<pre><code class="language-ruby">retry_if do |job|
-  if job['payload']['class'] == 'SendEmailNotifications' &amp;&amp; job['exception'] == 'Net::SMTPServerBusy'
-    if !job['retried_at']
-      next true
-    end
-  end
-
-  false
-end
-</code></pre>
-
-<p>I might eventually move this to a rake task, but that’s a blog post for the future.</p>
 </div>
       </div>
     </div>
