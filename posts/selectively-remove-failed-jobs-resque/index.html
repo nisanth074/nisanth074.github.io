@@ -1,0 +1,67 @@
+<html>
+  <head>
+  <link rel="stylesheet" href="https://nisanth074.github.io//bower_components/normalize.css/normalize.css">
+  
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/digitalocean.css">
+
+  <link rel="stylesheet" href="https://nisanth074.github.io//bower_components/highlightjs/styles/github.css">
+  <script src="https://nisanth074.github.io//bower_components/highlightjs/highlight.pack.js"></script>
+  <script src="https://nisanth074.github.io//bower_components/zepto/zepto.min.js"></script>
+  <script src="https://nisanth074.github.io//js/initHighlightingOnLoad.js"></script>
+</head>
+
+
+  <div class="main">
+    <div class="header">
+  <a href="/">Nisanth's Blog</a>
+</div>
+
+
+    <div class="postsContainer fadeInUp">
+      <div class="post">
+        <h1 class="postTitle">Selectively remove failed jobs from Resque 1.x</h1>
+
+        <p class="postDate">Sun, Apr 26, 2015</p>
+
+        <div class="postContent"><p>Copy the code snippet below and paste it in a rails console.</p>
+
+<pre><code class="language-ruby">def delete_if
+  redis = Resque.redis
+
+  (0...Resque::Failure.count).each do |i|
+    string = redis.lindex(:failed, i)
+    break if string.nil?
+
+    job = Resque.decode(string)
+    remove = yield job
+    next unless remove
+
+    redis.lrem(:failed, 1, string)
+    redo
+  end
+end
+</code></pre>
+
+<p>To selectively delete a subset of failed jobs, say we wish delete all push notification jobs that have failed because of http errors, run</p>
+
+<pre><code class="language-ruby">delete_if do |job|
+  job['payload']['class'] == 'SendPushNotification' &amp;&amp;
+    job['exception'] == 'Pusher::HTTPError'
+end
+</code></pre>
+
+<p>in the console.</p>
+
+<p>Here&rsquo;s a gist for the same <a href="https://gist.github.com/nisanth074/11332107">https://gist.github.com/nisanth074/11332107</a></p>
+</div>
+      </div>
+    </div>
+
+    <div class="footer fadeInUp">
+  <p>
+    Built with <a href="http://gohugo.io/">Hugo</a>
+   </p>
+</div>
+
+  </div>
+</html>

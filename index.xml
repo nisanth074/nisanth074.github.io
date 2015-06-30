@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nisanth&#39;s Blog</title>
+    <link>https://nisanth074.github.io/</link>
+    <description>Recent content on Nisanth&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 26 Apr 2015 14:58:53 +0530</lastBuildDate>
+    <atom:link href="https://nisanth074.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Remove ActiveRecord model from ElasticSearch index with tire gem</title>
+      <link>https://nisanth074.github.io/posts/remove-activerecord-model-elasticsearch/</link>
+      <pubDate>Sun, 26 Apr 2015 14:58:53 +0530</pubDate>
+      
+      <guid>https://nisanth074.github.io/posts/remove-activerecord-model-elasticsearch/</guid>
+      <description>&lt;p&gt;Say, we have an ActiveRecord model &lt;code&gt;Ticket&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class Ticket &amp;lt; ActiveRecord::Base
+  # Tire setup
+  # ...
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If we have a Ticket document in ElasticSearch and wish to delete it, we can do so with its document ID&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;document_id = ticket.id
+Ticket.index.remove(Ticket.document_type, document_id)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Quite handy if an ActiveRecord model is deleted, but a corresponding delete didn&amp;rsquo;t happen in ElasticSearch (for example, if the delete call to elasticsearch  failed due to network issues etc.)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Selectively remove failed jobs from Resque 1.x</title>
+      <link>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</link>
+      <pubDate>Sun, 26 Apr 2015 14:58:53 +0530</pubDate>
+      
+      <guid>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</guid>
+      <description>&lt;p&gt;Copy the code snippet below and paste it in a rails console.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;def delete_if
+  redis = Resque.redis
+
+  (0...Resque::Failure.count).each do |i|
+    string = redis.lindex(:failed, i)
+    break if string.nil?
+
+    job = Resque.decode(string)
+    remove = yield job
+    next unless remove
+
+    redis.lrem(:failed, 1, string)
+    redo
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To selectively delete a subset of failed jobs, say we wish delete all push notification jobs that have failed because of http errors, run&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;delete_if do |job|
+  job[&#39;payload&#39;][&#39;class&#39;] == &#39;SendPushNotification&#39; &amp;amp;&amp;amp;
+    job[&#39;exception&#39;] == &#39;Pusher::HTTPError&#39;
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;in the console.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s a gist for the same &lt;a href=&#34;https://gist.github.com/nisanth074/11332107&#34;&gt;https://gist.github.com/nisanth074/11332107&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
