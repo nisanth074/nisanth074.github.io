@@ -21,36 +21,46 @@
       <div class="post">
         <h1 class="postTitle">Selectively remove failed jobs from Resque 1.x</h1>
 
-        <p class="postDate">Tue, May 12, 2015</p>
+        <p class="postDate">Mon, May 12, 2014</p>
 
-        <div class="postContent"><p>Copy the code snippet below and paste it in a rails console.</p>
+        <div class="postContent"><p>Retrying failed jobs via Resque’s web interface is pretty tiresome, especially when there are more than a handful of them. So I’ve quickly written down a small script that’ll do it for me.</p>
 
-<pre><code class="language-ruby">def delete_if
+<p>Copy the snippet below and paste it in a rails console</p>
+
+<pre><code class="language-ruby">def retry_if(&amp;should_retry)
   redis = Resque.redis
 
   (0...Resque::Failure.count).each do |i|
-    string = redis.lindex(:failed, i)
-    break if string.nil?
+    serialized_job = redis.lindex(:failed, i)
+    job = Resque.decode(serialized_job)
 
-    job = Resque.decode(string)
-    remove = yield job
-    next unless remove
-
-    redis.lrem(:failed, 1, string)
-    redo
+    next unless should_retry.(job)
+    Resque::Failure.requeue(i)
   end
 end
 </code></pre>
 
-<p>To selectively delete a subset of failed jobs, say we wish delete all push notification jobs that have failed because of http errors, run</p>
+<p>To retry a subset of failed jobs, say email notifications that have failed because of smtp errors</p>
 
-<pre><code class="language-ruby">delete_if do |job|
-  job['payload']['class'] == 'SendPushNotification' &amp;&amp;
-    job['exception'] == 'Pusher::HTTPError'
+<pre><code class="language-ruby">retry_if do |job|
+  job['payload']['class'] == 'SendEmailNotifications' &amp;&amp; job['exception'] == 'Net::SMTPServerBusy'
 end
 </code></pre>
 
-<p>in the console.</p>
+<p>If you want to skip jobs that have already been retried</p>
+
+<pre><code class="language-ruby">retry_if do |job|
+  if job['payload']['class'] == 'SendEmailNotifications' &amp;&amp; job['exception'] == 'Net::SMTPServerBusy'
+    if !job['retried_at']
+      next true
+    end
+  end
+
+  false
+end
+</code></pre>
+
+<p>I might eventually move this to a rake task, but that’s a blog post for the future.</p>
 </div>
       </div>
     </div>

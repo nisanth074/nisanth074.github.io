@@ -6,50 +6,75 @@
     <description>Recent content in Posts on Nisanth&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 12 May 2015 14:58:53 +0530</lastBuildDate>
+    <lastBuildDate>Thu, 08 Jan 2015 14:58:53 +0530</lastBuildDate>
     <atom:link href="https://nisanth074.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Bulk retry failed jobs in Resque 1.x</title>
+      <link>https://nisanth074.github.io/posts/bulk-retry-failed-jobs-resque/</link>
+      <pubDate>Thu, 08 Jan 2015 14:58:53 +0530</pubDate>
+      
+      <guid>https://nisanth074.github.io/posts/bulk-retry-failed-jobs-resque/</guid>
+      <description>&lt;p&gt;If you use the &lt;a href=&#34;https://github.com/karmi/retire&#34;&gt;tire&lt;/a&gt; gem in your rails app and wish to quickly find the version of elasticsearch you use, open a rails console and run&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;response = Tire::Configuration.client.get(Tire::Configuration.url)
+version = JSON.parse(response.body)[&#39;version&#39;]
+puts version
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>Selectively remove failed jobs from Resque 1.x</title>
       <link>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</link>
-      <pubDate>Tue, 12 May 2015 14:58:53 +0530</pubDate>
+      <pubDate>Mon, 12 May 2014 14:58:53 +0530</pubDate>
       
       <guid>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</guid>
-      <description>&lt;p&gt;Copy the code snippet below and paste it in a rails console.&lt;/p&gt;
+      <description>&lt;p&gt;Retrying failed jobs via Resque’s web interface is pretty tiresome, especially when there are more than a handful of them. So I’ve quickly written down a small script that’ll do it for me.&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;def delete_if
+&lt;p&gt;Copy the snippet below and paste it in a rails console&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;def retry_if(&amp;amp;should_retry)
   redis = Resque.redis
 
   (0...Resque::Failure.count).each do |i|
-    string = redis.lindex(:failed, i)
-    break if string.nil?
+    serialized_job = redis.lindex(:failed, i)
+    job = Resque.decode(serialized_job)
 
-    job = Resque.decode(string)
-    remove = yield job
-    next unless remove
-
-    redis.lrem(:failed, 1, string)
-    redo
+    next unless should_retry.(job)
+    Resque::Failure.requeue(i)
   end
 end
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;To selectively delete a subset of failed jobs, say we wish delete all push notification jobs that have failed because of http errors, run&lt;/p&gt;
+&lt;p&gt;To retry a subset of failed jobs, say email notifications that have failed because of smtp errors&lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;delete_if do |job|
-  job[&#39;payload&#39;][&#39;class&#39;] == &#39;SendPushNotification&#39; &amp;amp;&amp;amp;
-    job[&#39;exception&#39;] == &#39;Pusher::HTTPError&#39;
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;retry_if do |job|
+  job[&#39;payload&#39;][&#39;class&#39;] == &#39;SendEmailNotifications&#39; &amp;amp;&amp;amp; job[&#39;exception&#39;] == &#39;Net::SMTPServerBusy&#39;
 end
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;in the console.&lt;/p&gt;
+&lt;p&gt;If you want to skip jobs that have already been retried&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;retry_if do |job|
+  if job[&#39;payload&#39;][&#39;class&#39;] == &#39;SendEmailNotifications&#39; &amp;amp;&amp;amp; job[&#39;exception&#39;] == &#39;Net::SMTPServerBusy&#39;
+    if !job[&#39;retried_at&#39;]
+      next true
+    end
+  end
+
+  false
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I might eventually move this to a rake task, but that’s a blog post for the future.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Remove ActiveRecord model from ElasticSearch index with tire gem</title>
       <link>https://nisanth074.github.io/posts/remove-activerecord-model-elasticsearch/</link>
-      <pubDate>Sun, 26 Apr 2015 14:58:53 +0530</pubDate>
+      <pubDate>Sat, 26 Apr 2014 14:58:53 +0530</pubDate>
       
       <guid>https://nisanth074.github.io/posts/remove-activerecord-model-elasticsearch/</guid>
       <description>&lt;p&gt;Say, we have an ActiveRecord model &lt;code&gt;Ticket&lt;/code&gt;&lt;/p&gt;
@@ -73,7 +98,7 @@ Ticket.index.remove(Ticket.document_type, document_id)
     <item>
       <title>Quickly find elasticsearch version with tire gem</title>
       <link>https://nisanth074.github.io/posts/find-elasticsearch-version-tire/</link>
-      <pubDate>Wed, 22 Apr 2015 14:58:53 +0530</pubDate>
+      <pubDate>Tue, 22 Apr 2014 14:58:53 +0530</pubDate>
       
       <guid>https://nisanth074.github.io/posts/find-elasticsearch-version-tire/</guid>
       <description>&lt;p&gt;If you use the &lt;a href=&#34;https://github.com/karmi/retire&#34;&gt;tire&lt;/a&gt; gem in your rails app and wish to quickly find the version of elasticsearch you use, open a rails console and run&lt;/p&gt;

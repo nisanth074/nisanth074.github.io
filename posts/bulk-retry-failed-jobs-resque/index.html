@@ -19,25 +19,16 @@
 
     <div class="postsContainer fadeInUp">
       <div class="post">
-        <h1 class="postTitle">Remove ActiveRecord model from ElasticSearch index with tire gem</h1>
+        <h1 class="postTitle">Bulk retry failed jobs in Resque 1.x</h1>
 
-        <p class="postDate">Sat, Apr 26, 2014</p>
+        <p class="postDate">Thu, Jan 8, 2015</p>
 
-        <div class="postContent"><p>Say, we have an ActiveRecord model <code>Ticket</code></p>
+        <div class="postContent"><p>If you use the <a href="https://github.com/karmi/retire">tire</a> gem in your rails app and wish to quickly find the version of elasticsearch you use, open a rails console and run</p>
 
-<pre><code class="language-ruby">class Ticket &lt; ActiveRecord::Base
-  # Tire setup
-  # ...
-end
+<pre><code class="language-ruby">response = Tire::Configuration.client.get(Tire::Configuration.url)
+version = JSON.parse(response.body)['version']
+puts version
 </code></pre>
-
-<p>If we have a Ticket document in ElasticSearch and wish to delete it, we can do so with its document ID</p>
-
-<pre><code class="language-ruby">document_id = ticket.id
-Ticket.index.remove(Ticket.document_type, document_id)
-</code></pre>
-
-<p>Quite handy if an ActiveRecord model is deleted, but a corresponding delete didn&rsquo;t happen in ElasticSearch (for example, if the delete call to elasticsearch  failed due to network issues etc.)</p>
 </div>
       </div>
     </div>
