@@ -10,7 +10,7 @@
     <atom:link href="https://nisanth074.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Bulk retry failed jobs in Resque 1.x</title>
+      <title>Bulk retry failed jobs in resque 1.x</title>
       <link>https://nisanth074.github.io/posts/bulk-retry-failed-jobs-resque/</link>
       <pubDate>Thu, 08 Jan 2015 14:58:53 +0530</pubDate>
       
@@ -57,7 +57,7 @@ end
     </item>
     
     <item>
-      <title>Selectively remove failed jobs from Resque 1.x</title>
+      <title>Selectively remove failed jobs from resque 1.x</title>
       <link>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</link>
       <pubDate>Mon, 12 May 2014 14:58:53 +0530</pubDate>
       
@@ -94,7 +94,7 @@ end
     </item>
     
     <item>
-      <title>Remove ActiveRecord model from ElasticSearch index with tire gem</title>
+      <title>Remove ActiveRecord model from elasticSearch index with tire gem</title>
       <link>https://nisanth074.github.io/posts/remove-activerecord-model-elasticsearch/</link>
       <pubDate>Sat, 26 Apr 2014 14:58:53 +0530</pubDate>
       
