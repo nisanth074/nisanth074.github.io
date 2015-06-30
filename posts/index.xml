@@ -70,5 +70,20 @@ Ticket.index.remove(Ticket.document_type, document_id)
 </description>
     </item>
     
+    <item>
+      <title>Quickly find elasticsearch version with tire gem</title>
+      <link>https://nisanth074.github.io/posts/find-elasticsearch-version-tire/</link>
+      <pubDate>Wed, 22 Apr 2015 14:58:53 +0530</pubDate>
+      
+      <guid>https://nisanth074.github.io/posts/find-elasticsearch-version-tire/</guid>
+      <description>&lt;p&gt;If you use the &lt;a href=&#34;https://github.com/karmi/retire&#34;&gt;tire&lt;/a&gt; gem in your rails app and wish to quickly find the version of elasticsearch you use, open a rails console and run&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;response = Tire::Configuration.client.get(Tire::Configuration.url)
+version = JSON.parse(response.body)[&#39;version&#39;]
+puts version
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
