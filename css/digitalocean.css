@@ -91,12 +91,16 @@ a {
   padding-top: 80px;
   padding-bottom: 120px;
 
-  padding-left: 215px;
-  padding-right: 215px;
+  /*padding-left: 200px;
+  padding-right: 200px;*/
 }
 
 .post {
   margin-top: 38px;
+
+  margin-left: auto;
+  margin-right: auto;
+  width: 560px;
 }
 
 /*.post:not(:first-child) {
@@ -184,4 +188,17 @@ pre {
 
 pre * {
   font-weight: normal !important;
+}
+
+blockquote {
+  margin: 0px;
+
+  border-left: 4px solid #ddd;
+  padding-left: 15px;
+  
+  font-style: italic;
+}
+
+blockquote p {
+  color: #AAA;
 }
