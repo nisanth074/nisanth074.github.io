@@ -15,9 +15,9 @@
       <pubDate>Thu, 08 Jan 2015 14:58:53 +0530</pubDate>
       
       <guid>https://nisanth074.github.io/posts/bulk-retry-failed-jobs-resque/</guid>
-      <description>&lt;p&gt;Retrying failed jobs via Resque’s web interface is pretty tiresome, especially when there are more than a handful of them. So I’ve quickly written down a small script that’ll do it for me.&lt;/p&gt;
+      <description>&lt;p&gt;Retrying failed jobs via Resque’s web interface is pretty tiresome, especially when there are more than a handful of them. So I’ve written down a small script that’ll do it for me.&lt;/p&gt;
 
-&lt;p&gt;Copy the snippet below and paste it in a rails console&lt;/p&gt;
+&lt;p&gt;Open a rails console and copy paste the snippet below&lt;/p&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;def retry_if(&amp;amp;should_retry)
   redis = Resque.redis
@@ -53,82 +53,6 @@ end
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;I might eventually move this to a rake task, but that’s a blog post for the future.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Selectively remove failed jobs from Resque 1.x</title>
-      <link>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</link>
-      <pubDate>Mon, 12 May 2014 14:58:53 +0530</pubDate>
-      
-      <guid>https://nisanth074.github.io/posts/selectively-remove-failed-jobs-resque/</guid>
-      <description>&lt;p&gt;Copy the code snippet below and paste it in a rails console.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;def delete_if
-  redis = Resque.redis
-
-  (0...Resque::Failure.count).each do |i|
-    string = redis.lindex(:failed, i)
-    break if string.nil?
-
-    job = Resque.decode(string)
-    remove = yield job
-    next unless remove
-
-    redis.lrem(:failed, 1, string)
-    redo
-  end
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;To selectively delete a subset of failed jobs, say we wish delete all push notification jobs that have failed because of http errors, run&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;delete_if do |job|
-  job[&#39;payload&#39;][&#39;class&#39;] == &#39;SendPushNotification&#39; &amp;amp;&amp;amp;
-    job[&#39;exception&#39;] == &#39;Pusher::HTTPError&#39;
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;in the console.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Remove ActiveRecord model from ElasticSearch index with tire gem</title>
-      <link>https://nisanth074.github.io/posts/remove-activerecord-model-elasticsearch/</link>
-      <pubDate>Sat, 26 Apr 2014 14:58:53 +0530</pubDate>
-      
-      <guid>https://nisanth074.github.io/posts/remove-activerecord-model-elasticsearch/</guid>
-      <description>&lt;p&gt;Say, we have an ActiveRecord model &lt;code&gt;Ticket&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;class Ticket &amp;lt; ActiveRecord::Base
-  # Tire setup
-  # ...
-end
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;If we have a Ticket document in ElasticSearch and wish to delete it, we can do so with its document ID&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;document_id = ticket.id
-Ticket.index.remove(Ticket.document_type, document_id)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Quite handy if an ActiveRecord model is deleted, but a corresponding delete didn&amp;rsquo;t happen in ElasticSearch (for example, if the delete call to elasticsearch  failed due to network issues etc.)&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Quickly find elasticsearch version with tire gem</title>
-      <link>https://nisanth074.github.io/posts/find-elasticsearch-version-tire/</link>
-      <pubDate>Tue, 22 Apr 2014 14:58:53 +0530</pubDate>
-      
-      <guid>https://nisanth074.github.io/posts/find-elasticsearch-version-tire/</guid>
-      <description>&lt;p&gt;If you use the &lt;a href=&#34;https://github.com/karmi/retire&#34;&gt;tire&lt;/a&gt; gem in your rails app and wish to quickly find the version of elasticsearch you use, open a rails console and run&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-ruby&#34;&gt;response = Tire::Configuration.client.get(Tire::Configuration.url)
-version = JSON.parse(response.body)[&#39;version&#39;]
-puts version
-&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
