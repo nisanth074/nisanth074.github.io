@@ -3,10 +3,12 @@
  * Courtesy of GitHub.com
  */
 
-.hll { background-color: #f8f8f8; border: 1px solid #ccc; padding: 6px 10px; border-radius: 3px; }
+/*.hll { background-color: #f8f8f8; border: 1px solid #ccc; padding: 6px 10px; border-radius: 3px; }*/
+.highlight { border: 1px solid #ccc; padding: 12px 10px; border-radius: 3px; }
 .c { color: #999988; font-style: italic; }
 .err { color: #a61717; background-color: #e3d2d2; }
-.k { font-weight: bold; }
+/*.k { font-weight: bold; }*/
+.k { color: rgb(167, 29, 93); }
 .o { font-weight: bold; }
 .cm { color: #999988; font-style: italic; }
 .cp { color: #999999; font-weight: bold; }
@@ -36,10 +38,12 @@
 .na { color: teal; }
 .nb { color: #0086b3; }
 .nc { color: #445588; font-weight: bold; }
-.no { color: teal; }
+/*.no { color: teal; }*/
+.no { color: #0086b3; }
 .ni { color: purple; }
 .ne { color: #990000; font-weight: bold; }
-.nf { color: #990000; font-weight: bold; }
+/*.nf { color: #990000; font-weight: bold; }*/
+.nf { color: #795da3; font-weight: bold; }
 .nn { color: #555555; }
 .nt { color: navy; }
 .nv { color: teal; }
@@ -58,8 +62,10 @@
 .si { color: #dd1144; }
 .sx { color: #dd1144; }
 .sr { color: #009926; }
-.s1 { color: #dd1144; }
-.ss { color: #990073; }
+/*.s1 { color: #dd1144; }*/
+.s1 { color: #df5000; }
+/*.ss { color: #990073; }*/
+.ss { color: #0086b3; }
 .bp { color: #999999; }
 .vc { color: teal; }
 .vg { color: teal; }
