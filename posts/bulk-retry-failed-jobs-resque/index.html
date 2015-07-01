@@ -23,9 +23,9 @@
 
         <p class="postDate">Thu, Jan 8, 2015</p>
 
-        <div class="postContent"><p>Retrying failed jobs via Resque’s web interface is pretty tiresome, especially when there are more than a handful of them. So I’ve written down a small script that’ll do it for me.</p>
+        <div class="postContent"><p>Retrying failed jobs via Resque’s web interface is pretty tiresome, especially when there are more than a handful of them. So I’ve quickly wrote down a small script that’ll do it for me.</p>
 
-<p>Open a rails console and copy paste the snippet below</p>
+<p>Open a rails console and copy paste the below snippet</p>
 
 <pre><code class="language-ruby">def retry_if(&amp;should_retry)
   redis = Resque.redis
