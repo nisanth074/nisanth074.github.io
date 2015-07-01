@@ -172,3 +172,15 @@ hr {
         transform: translateY(0);
     }
 }
+
+pre {
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 13px;
+}
+
+pre * {
+  font-weight: normal !important;
+}
