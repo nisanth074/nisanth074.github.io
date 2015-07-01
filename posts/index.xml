@@ -15,7 +15,7 @@
       <pubDate>Thu, 08 Jan 2015 14:58:53 +0530</pubDate>
       
       <guid>https://nisanth074.github.io/posts/bulk-retry-failed-jobs-resque/</guid>
-      <description>&lt;p&gt;Retrying failed jobs via Resque’s web interface is pretty tiresome, especially when there are more than a handful of them. So I’ve quickly wrote down a small script that’ll do it for me.&lt;/p&gt;
+      <description>&lt;p&gt;Retrying failed jobs via Resque’s web interface is pretty tiresome, especially when there are more than a handful of them. So I quickly wrote down a small script that’ll do it for me.&lt;/p&gt;
 
 &lt;p&gt;Open a rails console and copy paste the below snippet&lt;/p&gt;
 
