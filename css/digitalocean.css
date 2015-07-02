@@ -202,3 +202,41 @@ blockquote {
 blockquote p {
   color: #AAA;
 }
+
+ /* Borrowed from stopvisualpollution.com */
+
+.social {
+  float: right;
+}
+
+.twitter, .github {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  
+  background: #AAA;
+  transition: background 0.5s;
+  
+  margin-left: 12px;
+}
+
+.twitter {
+  /*background: #4099FF;*/
+  -webkit-mask-box-image: url("/images/twitter.svg");
+}
+
+.twitter:hover {
+  background: #4099FF;
+}
+
+.github {
+  -webkit-mask-box-image: url("/images/mark-github.svg");
+}
+
+.github:hover {
+  background: #000000;
+}
+
+.twitter-follow-button {
+  float: right;
+}
