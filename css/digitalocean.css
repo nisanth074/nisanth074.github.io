@@ -52,11 +52,18 @@ h1 {
 
 h2 {
   font-size: 28px;
+  margin-top: 23px;
   margin-bottom: 34.5px;
   color: #222;
 }
 
-p {
+h3 {
+  font-size: 23px;
+  color: #222;
+  margin-top: 34.5px;
+}
+
+p, ul {
   font-size: 23px;
   font-weight: normal;
   line-height: 34.5px;
@@ -149,23 +156,21 @@ a {
 }
 
 .pageContentContainer {
-  /*padding-top: 80px;*/
   padding-top: 32px;
   padding-bottom: 120px;
-}
-
-.post {
-  margin-top: 38px;
-
+  width: 704px;
   margin-left: auto;
   margin-right: auto;
-  /*width: 560px;*/
-  width: 704px;
 }
 
-/*.post:not(:first-child) {
-  margin-top: 36px;
-}*/
+.pageContent, .post, .postSummary {
+  margin-top: 38px;
+}
+
+.pageContentContainer ul {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
 .postTitle a {
   color: #222;
@@ -219,10 +224,10 @@ code {
 }
 
 hr {
-  margin-top: 21px;
-  margin-bottom: 21px; 
   border: 0px;
   border-top: 1px solid #eee;
+  margin-top: 48px;
+  margin-bottom: 48px;
 }
 
 .footer {
@@ -281,9 +286,4 @@ blockquote {
 blockquote p {
   /*color: #AAA;*/
   /*color: #b1b2b2;*/
-}
-
-hr {
-  margin-top: 48px;
-  margin-bottom: 48px;
 }

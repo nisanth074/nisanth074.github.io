@@ -100,6 +100,57 @@ Source code in available on &lt;a href=&#34;https://github.com/nisanth074/nisant
     </item>
     
     <item>
+      <title></title>
+      <link>https://nisanth074.github.io/books/</link>
+      <pubDate>Fri, 03 Jul 2015 13:52:01 +0530</pubDate>
+      
+      <guid>https://nisanth074.github.io/books/</guid>
+      <description>
+
+&lt;p&gt;Inspired by colleagues, I began to prefer books over blogposts and tutorials to learn new things. The following is a list of some wonderful books that have been recommended to me by colleagues and friends in the past two years.&lt;/p&gt;
+
+&lt;h3 id=&#34;productivity:dbc19c2f13d02e3f5b18602966a5728f&#34;&gt;Productivity&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Your Brain at Work&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;business:dbc19c2f13d02e3f5b18602966a5728f&#34;&gt;Business&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Zero to One&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;development:dbc19c2f13d02e3f5b18602966a5728f&#34;&gt;Development&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The RSpec Book&lt;/li&gt;
+&lt;li&gt;Clean Code: A Handbook of Agile Software Craftsmanship&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;ruby-rails-development:dbc19c2f13d02e3f5b18602966a5728f&#34;&gt;Ruby/Rails Development&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Programming Ruby, also known as &amp;ldquo;The Pickaxe book&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;The Rails 3 Way&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;javascript-development:dbc19c2f13d02e3f5b18602966a5728f&#34;&gt;JavaScript Development&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;JavaScript: The Good Parts&lt;/li&gt;
+&lt;li&gt;Building Single Page Web Apps with Backbone.js&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;computer-science:dbc19c2f13d02e3f5b18602966a5728f&#34;&gt;Computer Science&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Structure and Interpretation of Computer Programs&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Bulk retry failed jobs in Resque 1.x</title>
       <link>https://nisanth074.github.io/posts/bulk-retry-failed-jobs-resque/</link>
       <pubDate>Thu, 22 May 2014 14:58:53 +0530</pubDate>
