@@ -1,43 +1,54 @@
 <html>
   <head>
-  <link rel="stylesheet" href="http://localhost:1313//bower_components/normalize.css/normalize.css">
-  
-  <link rel="stylesheet" href="http://localhost:1313//css/digitalocean.css">
+  <title>Nisanth's Blog</title>
+  <link rel="shortcut icon" href="/favicon-a409055.ico">
 
-  <link rel="stylesheet" href="http://localhost:1313//bower_components/highlightjs/styles/github.css">
-  <script src="http://localhost:1313//bower_components/highlightjs/highlight.pack.js"></script>
-  <script src="http://localhost:1313//bower_components/zepto/zepto.min.js"></script>
-  <script src="http://localhost:1313//js/initHighlightingOnLoad.js"></script>
+  
+
+  <link rel="stylesheet" href="https://nisanth074.github.io//bower_components/normalize.css/normalize.css">
+  
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/fonts.css">
+  <link href='https://fonts.googleapis.com/css?family=Arbutus+Slab' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/digitalocean.css">
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/pygments-github.css">
 </head>
 
 
-  <div class="main">
-    <div class="header">
-  <a href="/">Nisanth's Blog</a>
+  <body>
+    <div class="main">
+      <div class="header">
+  <a href="https://nisanth074.github.io/">
+    <img src="https://nisanth074.github.io//images/avatar.jpeg" class="avatar"></img>
+  </a>
+  <nav class="mainNav">
+    <a href="/about" class="active">About</a>
+    <a class="twitter-follow-button" href="https://twitter.com/nisanth074" data-show-count="false"></a>
+  </nav>
 </div>
 
 
-    <div class="postsContainer fadeInUp">
-      <div class="post">
-        <h1 class="postTitle">Quickly find elasticsearch version with tire gem</h1>
+      <div class="pageContentContainer fadeInUp">
+        <div class="post">
+          <h1 class="postTitle">Quickly find your app&#39;s Elasticsearch version with tire gem</h1>
+          <p class="postDate">April 22, 2014</p>
 
-        <p class="postDate">Tue, Apr 22, 2014</p>
 
-        <div class="postContent"><p>If you use the <a href="https://github.com/karmi/retire">tire</a> gem in your rails app and wish to quickly find the version of elasticsearch you use, open a rails console and run</p>
 
-<pre><code class="language-ruby">response = Tire::Configuration.client.get(Tire::Configuration.url)
-version = JSON.parse(response.body)['version']
-puts version
-</code></pre>
+          <div class="postContent"><p>If you use Elasticsearch and the <a href="https://github.com/karmi/retire">tire</a> gem and wish to quickly find the version of Elasticsearch your rails app uses, open a rails console and run</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">response</span> <span class="o">=</span> <span class="no">Tire</span><span class="o">::</span><span class="no">Configuration</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="no">Tire</span><span class="o">::</span><span class="no">Configuration</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+<span class="n">version</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">)</span><span class="o">[</span><span class="s1">&#39;version&#39;</span><span class="o">]</span>
+<span class="nb">puts</span> <span class="n">version</span>
+</code></pre></div>
+
 </div>
+        </div>
       </div>
     </div>
 
-    <div class="footer fadeInUp">
-  <p>
-    Built with <a href="http://gohugo.io/">Hugo</a>
-   </p>
-</div>
+    
 
-  </div>
+<script src="https://nisanth074.github.io//js/twitterWidgets.js"></script>
+
+  </body>
 </html>

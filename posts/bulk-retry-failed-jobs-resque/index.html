@@ -3,39 +3,38 @@
   <title>Nisanth's Blog</title>
   <link rel="shortcut icon" href="/favicon-a409055.ico">
 
+  
+
   <link rel="stylesheet" href="https://nisanth074.github.io//bower_components/normalize.css/normalize.css">
   
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/fonts.css">
+  <link href='https://fonts.googleapis.com/css?family=Arbutus+Slab' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="https://nisanth074.github.io//css/digitalocean.css">
-  <link rel="stylesheet" href="https://nisanth074.github.io//css/pygments-github2.css">
-
-  <link rel="stylesheet" href="https://nisanth074.github.io//bower_components/highlightjs/styles/github.css">
-  
-  <script src="https://nisanth074.github.io//bower_components/zepto/zepto.min.js"></script>
-  
-  <script src="https://nisanth074.github.io//js/twitterWidgets.js"></script>
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/pygments-github.css">
 </head>
 
 
-  <div class="main">
-    <div class="header">
+  <body>
+    <div class="main">
+      <div class="header">
+  <a href="https://nisanth074.github.io/">
+    <img src="https://nisanth074.github.io//images/avatar.jpeg" class="avatar"></img>
+  </a>
   <nav class="mainNav">
-    
-      <a href="/" class="title active">Nisanth's Blog</a>
-      <a href="/about">About</a>
-    
+    <a href="/about" class="active">About</a>
+    <a class="twitter-follow-button" href="https://twitter.com/nisanth074" data-show-count="false"></a>
   </nav>
-  
-  <a class="twitter-follow-button" href="https://twitter.com/nisanth074" data-show-count="false"> Follow @nisanth074</a>
 </div>
 
 
-    <div class="postsContainer fadeInUp">
-      <div class="post">
-        <h1 class="postTitle">Bulk retry failed jobs in Resque 1.x</h1>
+      <div class="pageContentContainer fadeInUp">
+        <div class="post">
+          <h1 class="postTitle">Bulk retry failed jobs in Resque 1.x</h1>
+          <p class="postDate">January 8, 2015</p>
 
-        <p class="postDate">Thu, Jan 8, 2015</p>
 
-        <div class="postContent"><blockquote>
+
+          <div class="postContent"><blockquote>
 <p>Reposted from <a href="https://devblog.supportbee.com/2015/01/08/retry-subset-of-failed-jobs-in-resque/">SupportBee&rsquo;s Dev Blog</a></p>
 </blockquote>
 
@@ -43,7 +42,7 @@
 
 <p>Open a rails console and copy paste the below snippet</p>
 
-<p><div class="highlight"><pre><span class="k">def</span> <span class="nf">retry_if</span><span class="p">(</span><span class="o">&amp;</span><span class="n">should_retry</span><span class="p">)</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">retry_if</span><span class="p">(</span><span class="o">&amp;</span><span class="n">should_retry</span><span class="p">)</span>
   <span class="n">redis</span> <span class="o">=</span> <span class="no">Resque</span><span class="o">.</span><span class="n">redis</span>
 
   <span class="p">(</span><span class="mi">0</span><span class="o">...</span><span class="no">Resque</span><span class="o">::</span><span class="no">Failure</span><span class="o">.</span><span class="n">count</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
@@ -54,20 +53,21 @@
     <span class="no">Resque</span><span class="o">::</span><span class="no">Failure</span><span class="o">.</span><span class="n">requeue</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></div>
-</p>
+</code></pre></div>
+
 
 <p>To retry a subset of failed jobs, say email notifications that have failed because of smtp errors</p>
 
-<p><div class="highlight"><pre><span class="n">retry_if</span> <span class="k">do</span> <span class="o">|</span><span class="n">job</span><span class="o">|</span>
-  <span class="n">job</span><span class="o">[</span><span class="s1">&#39;payload&#39;</span><span class="o">][</span><span class="s1">&#39;class&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;SendEmailNotifications&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">job</span><span class="o">[</span><span class="s1">&#39;exception&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;Net::SMTPServerBusy&#39;</span>
+<p><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">retry_if</span> <span class="k">do</span> <span class="o">|</span><span class="n">job</span><span class="o">|</span>
+  <span class="n">job</span><span class="o">[</span><span class="s1">&#39;payload&#39;</span><span class="o">][</span><span class="s1">&#39;class&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;SendEmailNotifications&#39;</span> <span class="o">&amp;&amp;</span>
+  <span class="n">job</span><span class="o">[</span><span class="s1">&#39;exception&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;Net::SMTPServerBusy&#39;</span>
 <span class="k">end</span>
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>If you want to skip jobs that have already been retried</p>
 
-<p><div class="highlight"><pre><span class="n">retry_if</span> <span class="k">do</span> <span class="o">|</span><span class="n">job</span><span class="o">|</span>
+<p><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">retry_if</span> <span class="k">do</span> <span class="o">|</span><span class="n">job</span><span class="o">|</span>
   <span class="k">if</span> <span class="n">job</span><span class="o">[</span><span class="s1">&#39;payload&#39;</span><span class="o">][</span><span class="s1">&#39;class&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;SendEmailNotifications&#39;</span> <span class="o">&amp;&amp;</span> <span class="n">job</span><span class="o">[</span><span class="s1">&#39;exception&#39;</span><span class="o">]</span> <span class="o">==</span> <span class="s1">&#39;Net::SMTPServerBusy&#39;</span>
     <span class="k">if</span> <span class="o">!</span><span class="n">job</span><span class="o">[</span><span class="s1">&#39;retried_at&#39;</span><span class="o">]</span>
       <span class="k">next</span> <span class="kp">true</span>
@@ -76,12 +76,18 @@
 
   <span class="kp">false</span>
 <span class="k">end</span>
-</pre></div>
+</code></pre></div>
 </p>
 
 <p>I might eventually move this to a rake task, but that’s a blog post for the future.</p>
 </div>
+        </div>
       </div>
     </div>
-  </div>
+
+    
+
+<script src="https://nisanth074.github.io//js/twitterWidgets.js"></script>
+
+  </body>
 </html>
