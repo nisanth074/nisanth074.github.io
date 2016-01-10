@@ -1,52 +1,65 @@
 <html>
   <head>
-  <link rel="stylesheet" href="http://localhost:1313//bower_components/normalize.css/normalize.css">
-  
-  <link rel="stylesheet" href="http://localhost:1313//css/digitalocean.css">
+  <title>Nisanth's Blog</title>
+  <link rel="shortcut icon" href="/favicon-a409055.ico">
 
-  <link rel="stylesheet" href="http://localhost:1313//bower_components/highlightjs/styles/github.css">
-  <script src="http://localhost:1313//bower_components/highlightjs/highlight.pack.js"></script>
-  <script src="http://localhost:1313//bower_components/zepto/zepto.min.js"></script>
-  <script src="http://localhost:1313//js/initHighlightingOnLoad.js"></script>
+  
+
+  <link rel="stylesheet" href="https://nisanth074.github.io//bower_components/normalize.css/normalize.css">
+  
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/fonts.css">
+  <link href='https://fonts.googleapis.com/css?family=Arbutus+Slab' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/digitalocean.css">
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/pygments-github.css">
 </head>
 
 
-  <div class="main">
-    <div class="header">
-  <a href="/">Nisanth's Blog</a>
+  <body>
+    <div class="main">
+      <div class="header">
+  <a href="https://nisanth074.github.io/">
+    <img src="https://nisanth074.github.io//images/avatar.jpeg" class="avatar"></img>
+  </a>
+  <nav class="mainNav">
+    <a href="/about" class="active">About</a>
+    <a class="twitter-follow-button" href="https://twitter.com/nisanth074" data-show-count="false"></a>
+  </nav>
 </div>
 
 
-    <div class="postsContainer fadeInUp">
-      <div class="post">
-        <h1 class="postTitle">Remove ActiveRecord model from ElasticSearch index with tire gem</h1>
+      <div class="pageContentContainer fadeInUp">
+        <div class="post">
+          <h1 class="postTitle">Remove ActiveRecord model from ElasticSearch index with tire gem</h1>
+          <p class="postDate">April 26, 2014</p>
 
-        <p class="postDate">Sat, Apr 26, 2014</p>
 
-        <div class="postContent"><p>Say, we have an ActiveRecord model <code>Ticket</code></p>
 
-<pre><code class="language-ruby">class Ticket &lt; ActiveRecord::Base
-  # Tire setup
-  # ...
-end
-</code></pre>
+          <div class="postContent"><p>Say, there is an ActiveRecord model <code>Ticket</code></p>
 
-<p>If we have a Ticket document in ElasticSearch and wish to delete it, we can do so with its document ID</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Ticket</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+  <span class="kp">include</span> <span class="no">Tire</span><span class="o">::</span><span class="no">Model</span><span class="o">::</span><span class="no">Search</span>
+  <span class="c1"># Tire gem setup...</span>
+<span class="k">end</span>
+</code></pre></div>
 
-<pre><code class="language-ruby">document_id = ticket.id
-Ticket.index.remove(Ticket.document_type, document_id)
-</code></pre>
 
-<p>Quite handy if an ActiveRecord model is deleted, but a corresponding delete didn&rsquo;t happen in ElasticSearch (for example, if the delete call to elasticsearch  failed due to network issues etc.)</p>
+<p>and a <code>Ticket</code> document in ElasticSearch that needs to be deleted. To delete the document, copy paste the following code in a rails console</p>
+
+<p><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ticket_id</span> <span class="o">=</span> <span class="mi">1234</span>
+<span class="n">document_id</span> <span class="o">=</span> <span class="n">ticket_id</span>
+<span class="no">Ticket</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="no">Ticket</span><span class="o">.</span><span class="n">document_type</span><span class="p">,</span> <span class="n">document_id</span><span class="p">)</span>
+</code></pre></div>
+</p>
+
+<p>This script is quite handy in situations where an ActiveRecord model is deleted from the database but the corresponding document wasn&rsquo;t deleted in Elasticsearch (due to network issues etc.)</p>
 </div>
+        </div>
       </div>
     </div>
 
-    <div class="footer fadeInUp">
-  <p>
-    Built with <a href="http://gohugo.io/">Hugo</a>
-   </p>
-</div>
+    
 
-  </div>
+<script src="https://nisanth074.github.io//js/twitterWidgets.js"></script>
+
+  </body>
 </html>
