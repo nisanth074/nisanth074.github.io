@@ -22,6 +22,7 @@ p {
 }
 
 html {
+  /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   /*font-family: 'Proxima Nova';*/
 }
@@ -34,9 +35,10 @@ h1 {
   line-height: 1.35;
 
   /*font-family: 'Proxima Nova Light';*/
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 300;
+  /*font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+  /*font-weight: 300;*/
   /*font-variant: normal;*/
+  font-family: 'ff-yoga-web-pro', Helvetica, Arial, sans-serif;
 
   margin-top: 0px;
   margin-bottom: 0px;
