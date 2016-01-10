@@ -1,0 +1,103 @@
+<html>
+  <head>
+  <title>Nisanth's Blog</title>
+  <link rel="shortcut icon" href="/favicon-a409055.ico">
+
+  
+
+  <link rel="stylesheet" href="https://nisanth074.github.io//bower_components/normalize.css/normalize.css">
+  
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/fonts.css">
+  <link href='https://fonts.googleapis.com/css?family=Arbutus+Slab' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/digitalocean.css">
+  <link rel="stylesheet" href="https://nisanth074.github.io//css/pygments-github.css">
+</head>
+
+
+  <body>
+    <div class="main">
+      <div class="header">
+  <a href="https://nisanth074.github.io/">
+    <img src="https://nisanth074.github.io//images/avatar.jpeg" class="avatar"></img>
+  </a>
+  <nav class="mainNav">
+	  <ul>
+	  	<li><a class="twitter-follow-button" href="https://twitter.com/nisanth074" data-show-count="false"></a></li>
+	    <li><a href="/about" class="active">About</a></li>
+	  </ul>
+  </nav>
+</div>
+
+
+      <div class="pageContentContainer fadeInUp">
+        <div class="post">
+          <h1 class="postTitle">Automating ssh key deployment in Rails apps with Ansible</h1>
+          <p class="postDate">August 5, 2015</p>
+
+
+
+          <div class="postContent"><blockquote>
+<p>Reposted from <a href="https://devblog.supportbee.com/2015/08/05/automate-ssh-key-deployment-with-ansible/">SupportBee&rsquo;s Dev Blog</a></p>
+</blockquote>
+
+<p>I decided to automate ssh key management on servers last week, after having done it manually for a couple of days. I typically used Capistrano to automate server configuration but had been searching for a tool which had a declarative style and works over SSH (just like Capistrano). Fortunately, I found Ansible via a friend’s tweet.</p>
+
+<p>Ansible is written in python and easiest way to install it is with pip (a package manager for python packages).</p>
+
+<pre><code>pip install ansible
+</code></pre>
+
+<p>or</p>
+
+<pre><code>pip install ansible==1.9.2 # I used Ansible 1.9.2 at the time of writing
+</code></pre>
+
+<p>Once installed, a user can describe the setup he’d like to have on his servers by writing an Ansible script (Ansible calls them playbooks). These playbooks are just YAML files. Here’s a playbook I wrote for the Rails servers at work to automate ssh key management. It adds ssh keys of current employees and removes ssh keys of interns and former employees. Copy the playbook and edit it according to your needs.</p>
+
+<div class="highlight"><pre><code class="language-yaml" data-lang="yaml"><span class="c1"># MyRailsApp/config/ansible/maintain_ssh_keys.yml</span>
+<span class="nn">---</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">hosts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">all</span>
+  <span class="l-Scalar-Plain">remote_user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">deploy</span> <span class="c1"># Login in as deploy user</span>
+  <span class="l-Scalar-Plain">tasks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">setup ssh keys</span>
+    <span class="l-Scalar-Plain">authorized_key</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">deploy</span> <span class="c1"># Configure ssh keys for deploy user</span>
+      <span class="l-Scalar-Plain">key</span><span class="p-Indicator">:</span> <span class="p-Indicator">|</span>
+        <span class="no">ssh-rsa AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA john@gmail.com</span>
+        <span class="no">ssh-rsa BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB jane@Jane-Does-iMac.local</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">remove ssh keys of former employees</span> 
+    <span class="l-Scalar-Plain">authorized_key</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">deploy</span> <span class="c1"># Configure ssh keys for deploy user</span>
+      <span class="l-Scalar-Plain">key</span><span class="p-Indicator">:</span> <span class="p-Indicator">|</span>
+        <span class="no">ssh-rsa CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC jack@gmail.com</span>
+        <span class="no">ssh-rsa DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD jill@gmail.com</span>
+      <span class="l-Scalar-Plain">state</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">absent</span>
+</code></pre></div>
+
+
+<p>Ansible will need the ip addresses or hostnames of your servers. Add a file which lists all your servers. Ansible calls this the inventory file.</p>
+
+<pre><code>; MyRailsApp/config/ansible/production
+web1.mysite.com
+web2.mysite.com
+db.mysite.com
+</code></pre>
+
+<p>Run the playbook and the ssh keys should be setup on your servers.</p>
+
+<pre><code>cd MyRailsApp/config/ansible/
+ansible-playbook -i production maintain_ssh_keys.yml
+</code></pre>
+
+<p>If you wish to know more about Ansible, <a href="http://docs.ansible.com/ansible/index.html#">Ansible documentation</a> is a good place to start. There are also a lot of Ansible playbooks on GitHub to borrow configuration from.</p>
+</div>
+        </div>
+      </div>
+    </div>
+
+    
+
+<script src="https://nisanth074.github.io//js/twitterWidgets.js"></script>
+
+  </body>
+</html>

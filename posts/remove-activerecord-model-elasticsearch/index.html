@@ -21,8 +21,10 @@
     <img src="https://nisanth074.github.io//images/avatar.jpeg" class="avatar"></img>
   </a>
   <nav class="mainNav">
-    <a href="/about" class="active">About</a>
-    <a class="twitter-follow-button" href="https://twitter.com/nisanth074" data-show-count="false"></a>
+	  <ul>
+	  	<li><a class="twitter-follow-button" href="https://twitter.com/nisanth074" data-show-count="false"></a></li>
+	    <li><a href="/about" class="active">About</a></li>
+	  </ul>
   </nav>
 </div>
 
@@ -43,7 +45,7 @@
 </code></pre></div>
 
 
-<p>and a <code>Ticket</code> document in ElasticSearch that needs to be deleted. To delete the document, copy paste the following code in a rails console</p>
+<p>and a <code>Ticket</code> document in ElasticSearch that you wish to delete. To delete the document, copy paste the following code in a rails console</p>
 
 <p><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ticket_id</span> <span class="o">=</span> <span class="mi">1234</span>
 <span class="n">document_id</span> <span class="o">=</span> <span class="n">ticket_id</span>
@@ -51,7 +53,7 @@
 </code></pre></div>
 </p>
 
-<p>This script is quite handy in situations where an ActiveRecord model is deleted from the database but the corresponding document wasn&rsquo;t deleted in Elasticsearch (due to network issues etc.)</p>
+<p>This script is quite handy in situations where an ActiveRecord model was deleted from the database but the corresponding document wasn&rsquo;t deleted in Elasticsearch (due to network issues etc.)</p>
 </div>
         </div>
       </div>
