@@ -22,7 +22,7 @@
 
   <body>
     <div class="frame">
-  <div class="header bit-60">
+  <div class="header">
     <div class="avatar-container bit-50">
       <a href="https://nisanth074.github.io/">
         <img src="https://nisanth074.github.io//images/avatar.jpeg" class="avatar"></img>
@@ -39,13 +39,14 @@
 
 
     <div class="main frame">
-      <div class="page bit-60 fade-in-up">
-        <div class="post">
-          <h1 class="post-title">Remove ActiveRecord model from ElasticSearch index with tire gem</h1>
-          <p class="post-date">April 26, 2014</p>
+  <div class="page fade-in-up">
+
+      <div class="post">
+        <h1 class="post-title">Remove ActiveRecord model from ElasticSearch index with tire gem</h1>
+        <p class="post-date">April 26, 2014</p>
 
 
-          <div class="post-content"><p>Say, there is an ActiveRecord model <code>Ticket</code></p>
+        <div class="post-content"><p>Say, there is an ActiveRecord model <code>Ticket</code></p>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Ticket</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="kp">include</span> <span class="no">Tire</span><span class="o">::</span><span class="no">Model</span><span class="o">::</span><span class="no">Search</span>
@@ -64,9 +65,9 @@
 
 <p>This script is quite handy in situations where an ActiveRecord model was deleted from the database but the corresponding document wasn&rsquo;t deleted in Elasticsearch (due to network issues etc.)</p>
 </div>
-        </div>
       </div>
-    </div>
+      </div>
+</div>
 
     
 
