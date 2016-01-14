@@ -24,7 +24,7 @@
   <a href="https://nisanth074.github.io/">
     <img src="https://nisanth074.github.io//images/avatar.jpeg" class="avatar"></img>
   </a>
-  <nav class="mainNav">
+  <nav class="top-nav">
 	  <ul>
 	    <li><a href="/">Blog</a></li>
 	    <li><a href="/books">Library</a></li>
@@ -34,14 +34,14 @@
 </div>
 
 
-      <div class="pageContentContainer fadeInUp">
+      <div class="page fade-in-up">
         <div class="post">
-          <h1 class="postTitle">Selectively remove failed jobs from Resque 1.x</h1>
-          <p class="postDate">May 12, 2014</p>
+          <h1 class="post-title">Selectively remove failed jobs from Resque 1.x</h1>
+          <p class="post-date">May 12, 2014</p>
 
 
 
-          <div class="postContent"><p>Copy the code snippet below and paste it in a rails console.</p>
+          <div class="post-content"><p>Copy the code snippet below and paste it in a rails console.</p>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">delete_if</span>
   <span class="n">redis</span> <span class="o">=</span> <span class="no">Resque</span><span class="o">.</span><span class="n">redis</span>

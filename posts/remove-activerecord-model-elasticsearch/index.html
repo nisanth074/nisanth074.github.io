@@ -24,7 +24,7 @@
   <a href="https://nisanth074.github.io/">
     <img src="https://nisanth074.github.io//images/avatar.jpeg" class="avatar"></img>
   </a>
-  <nav class="mainNav">
+  <nav class="top-nav">
 	  <ul>
 	    <li><a href="/">Blog</a></li>
 	    <li><a href="/books">Library</a></li>
@@ -34,14 +34,14 @@
 </div>
 
 
-      <div class="pageContentContainer fadeInUp">
+      <div class="page fade-in-up">
         <div class="post">
-          <h1 class="postTitle">Remove ActiveRecord model from ElasticSearch index with tire gem</h1>
-          <p class="postDate">April 26, 2014</p>
+          <h1 class="post-title">Remove ActiveRecord model from ElasticSearch index with tire gem</h1>
+          <p class="post-date">April 26, 2014</p>
 
 
 
-          <div class="postContent"><p>Say, there is an ActiveRecord model <code>Ticket</code></p>
+          <div class="post-content"><p>Say, there is an ActiveRecord model <code>Ticket</code></p>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Ticket</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="kp">include</span> <span class="no">Tire</span><span class="o">::</span><span class="no">Model</span><span class="o">::</span><span class="no">Search</span>
