@@ -87,6 +87,10 @@ hr {
   margin-right: auto;
 }
 
+/*
+Header
+*/
+
 .header {
   margin-top: 48px;
 
@@ -98,7 +102,7 @@ hr {
   margin-right: 20%;
 }
 
-@media (max-device-width: 414px) { /* iPhone 6 Plus width */
+@media (max-width: 414px) { /* iPhone 6 Plus width */
   .header, .page {
     margin-left: 8%;
     margin-right: 8%;
@@ -106,7 +110,7 @@ hr {
   }
 }
 
-@media (min-device-width: 414px) and (max-device-width: 768px) { /* iPhone 6 Plus width */
+@media (min-width: 414px) and (max-width: 768px) { /* iPad width */
   .header, .page {
     margin-left: 12%;
     margin-right: 12%;
