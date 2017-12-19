@@ -22,16 +22,13 @@
   <link rel="stylesheet" href="https://nisanth074.github.io//css/pygments-github.css"> 
 
   
-
   <script type="text/javascript" src="https://nisanth074.github.io//bower_components/particles.js/particles.js"></script>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 </head>
 
 
   <body>
-    <div id="particles" style="background-color: #186cb6;"></div>
-
-<div class="frame">
+    <div class="frame">
   <div class="header bit-60">
     <nav class="top-nav bit-100">
       <a class="title">Nisanth Chunduru</a>
@@ -43,7 +40,9 @@
       </ul>
     </nav>
     <img src="https://nisanth074.github.io//images/avatar.jpg" class="avatar"></img>
-    <p>Ruby Developer @SupportBee. Digital Nomad.</p>
+    <p>
+      Ruby Developer. Backend & Infrastructure Lead <a href="https:/twitter.com/SupportBee">@SupportBee<a>.
+    </p>
     <div style="margin-top: 8px; text-align: center;">
       <a href="https://twitter.com/nisanth074" class="twitter-follow-button" data-dnt="true">Follow @nisanth074</a>
     </div>
@@ -60,20 +59,16 @@
 
           <div class="post-content"><p>Say, there is an ActiveRecord model <code>Ticket</code></p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Ticket</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Ticket</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="kp">include</span> <span class="no">Tire</span><span class="o">::</span><span class="no">Model</span><span class="o">::</span><span class="no">Search</span>
   <span class="c1"># Tire gem setup...</span>
-<span class="k">end</span>
-</code></pre></div>
-
+<span class="k">end</span></code></pre></div>
 
 <p>and a <code>Ticket</code> document in ElasticSearch that you wish to delete. To delete the document, copy paste the following code in a rails console</p>
 
-<p><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">ticket_id</span> <span class="o">=</span> <span class="mi">1234</span>
-<span class="n">document_id</span> <span class="o">=</span> <span class="n">ticket_id</span>
-<span class="no">Ticket</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="no">Ticket</span><span class="o">.</span><span class="n">document_type</span><span class="p">,</span> <span class="n">document_id</span><span class="p">)</span>
-</code></pre></div>
-</p>
+<p><div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">ticket_id</span> <span class="o">=</span> <span class="mi">1234</span>
+<span class="o"></span><span class="n">document_id</span> <span class="o">=</span> <span class="n">ticket_id</span>
+<span class="no">Ticket</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="no">Ticket</span><span class="o">.</span><span class="n">document_type</span><span class="p">,</span> <span class="n">document_id</span><span class="p">)</span></code></pre></div></p>
 
 <p>This script is quite handy in situations where an ActiveRecord model was deleted from the database but the corresponding document wasn&rsquo;t deleted in Elasticsearch (due to network issues etc.)</p>
 </div>
@@ -84,10 +79,6 @@
     
 
 <script src="https://nisanth074.github.io//js/twitterWidgets.js"></script>
-
-
-
-<script type="text/javascript" src="https://nisanth074.github.io//js/main.js"></script>
 
   </body>
 </html>
