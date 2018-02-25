@@ -6,6 +6,9 @@
   
 
   <link rel="stylesheet" href="https://nisanth074.github.io//css/vendor/fonts.css">
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
   
 
@@ -23,14 +26,32 @@
 
 
   <body>
-    <div class="frame">
+    <div class="notice">
+  <div class="notice-icon">
+    <i class="fas fa-info-circle"></i>
+  </div>
+  <div class="notice-content">
+    I've moved my blog to WordPress
+    <a href="https://nisanthchunduru.wordpress.com">nisanthchunduru.wordpress.com</a>
+    so it becomes easy for me to publish more often. You'll find my latest posts there.
+  </div>
+</div>
+<div class="frame">
   <div class="header bit-60">
     <nav class="top-nav bit-100">
-      <a href="/"><h1 class="logo">NC</h1></a>
+      <a class="logo" href="/"><h1 class="logo-text">NC</h1></a>
       <ul>
-        <li><a href="/library">Books I like</a></li>
-        <li><a href="/about">About Me</a></li>
         <li>
+          <a href="/library">Books I like</a>
+        </li>
+        <li>
+          <a href="/about">About Me</a>
+        </li>
+        <li>
+          <a href="https://github.com/nisanth074" target="_blank">
+            Github
+            <i style="height: 13px; width: 13px; vertical-align: middle; margin-top: -4px; margin-left: -1px;" data-feather="external-link"></i>
+          </a>
         </li>
       </ul>
     </nav>
@@ -45,7 +66,7 @@
 
 <h2 id="books-i-like">Books I like</h2>
 
-<p>Following advice I received from a colleague at the beginning of my career, I began to prefer books over semi-structured content like blogposts, tutorials etc. to learn new things. The following is a list of some wonderful books that I like or that have been recommended to me by others in the last few years.</p>
+<p>I prefer learning from books over semi-structured content like blogposts, tutorials etc. The following is a list of some wonderful books that I value or that have been recommended to me by friends and colleagues in the last few years</p>
 
 <h3 id="ruby-ruby-on-rails">Ruby / Ruby on Rails</h3>
 
@@ -64,8 +85,8 @@
 <h3 id="javascript">JavaScript</h3>
 
 <ul>
+<li>Building Single Page Web Apps with Backbone.js (by Prateek Dayal)</li>
 <li>JavaScript: The Good Parts</li>
-<li>Building Single Page Web Apps with Backbone.js</li>
 </ul>
 
 <h3 id="computer-science">Computer Science</h3>
@@ -97,6 +118,10 @@
     </div>
 
     
+
+<script>
+  feather.replace();
+</script>
 
   </body>
 </html>
